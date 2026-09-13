@@ -1,0 +1,197 @@
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Para mi mamá ❤️</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3, #a18cd1);
+        overflow: hidden;
+      }
+
+      .contenedor {
+        width: 90%;
+        max-width: 700px;
+        padding: 40px 25px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(12px);
+        border-radius: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        color: white;
+      }
+
+      h1 {
+        font-size: 45px;
+        margin-bottom: 10px;
+        animation: latido 1.5s infinite;
+      }
+
+      .contador {
+        font-size: 42px;
+        font-weight: bold;
+        margin: 25px 0;
+      }
+
+      .mensaje {
+        font-size: 22px;
+        line-height: 1.6;
+        min-height: 100px;
+      }
+
+      .corazon {
+        position: absolute;
+        font-size: 25px;
+        animation: subir 6s linear infinite;
+        opacity: 0.8;
+      }
+
+      button {
+        margin-top: 20px;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 30px;
+        background: white;
+        color: #e84393;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        transform: scale(1.1);
+      }
+
+      #peticion {
+        display: none;
+        margin-top: 30px;
+        font-size: 30px;
+        font-weight: bold;
+        animation: aparecer 1.5s ease;
+      }
+
+      @keyframes latido {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      @keyframes subir {
+        from {
+          transform: translateY(100vh) rotate(0deg);
+        }
+        to {
+          transform: translateY(-120vh) rotate(360deg);
+        }
+      }
+
+      @keyframes aparecer {
+        from {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="contenedor">
+      <h1>❤️ Mamá ❤️</h1>
+
+      <div class="contador">Te quiero <span id="numero">0</span>%</div>
+
+      <div class="mensaje" id="mensaje">Mamá, quiero decirte algo...</div>
+
+      <button onclick="mostrarAmor()">💖 Mostrar cuánto te quiero</button>
+
+      <div id="peticion">🌙 ¿Me dejas salir en la noche? 😁❤️</div>
+    </div>
+
+    <script>
+      let porcentaje = 0;
+
+      const mensajes = [
+        "Gracias por estar siempre conmigo ❤️",
+        "Eres una persona muy importante para mí 🥰",
+        "Gracias por cuidarme y apoyarme 💕",
+        "Te quiero muchísimo, mamá ❤️",
+        "No hay porcentaje suficiente para medir cuánto te quiero 🥹",
+      ];
+
+      function mostrarAmor() {
+        const numero = document.getElementById("numero");
+        const mensaje = document.getElementById("mensaje");
+        const peticion = document.getElementById("peticion");
+
+        porcentaje = 0;
+
+        const intervalo = setInterval(() => {
+          porcentaje++;
+
+          numero.textContent = porcentaje;
+
+          if (porcentaje % 20 === 0) {
+            mensaje.textContent =
+              mensajes[Math.floor(porcentaje / 20) - 1] || mensajes[4];
+          }
+
+          if (porcentaje >= 100) {
+            clearInterval(intervalo);
+
+            numero.textContent = "∞";
+
+            mensaje.textContent = "Porque mi amor por ti no tiene límite ❤️🥹";
+
+            setTimeout(() => {
+              peticion.style.display = "block";
+            }, 1000);
+          }
+        }, 30);
+      }
+
+      // Crear corazones flotantes
+      function crearCorazon() {
+        const corazon = document.createElement("div");
+
+        corazon.className = "corazon";
+        corazon.textContent = ["❤️", "💕", "💖", "💗", "💝"][
+          Math.floor(Math.random() * 5)
+        ];
+
+        corazon.style.left = Math.random() * 100 + "vw";
+        corazon.style.animationDuration = 4 + Math.random() * 4 + "s";
+
+        document.body.appendChild(corazon);
+
+        setTimeout(() => {
+          corazon.remove();
+        }, 8000);
+      }
+
+      setInterval(crearCorazon, 500);
+    </script>
+  </body>
+</html>
+
