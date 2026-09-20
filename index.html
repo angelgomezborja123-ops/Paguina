@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Páginas sencillas, hechas a tu medida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F2EEE3;
+    --paper-alt: #E7E0CC;
+    --ink: #22302A;
+    --ink-soft: #4C5B53;
+    --teal: #3E6E63;
+    --teal-deep: #2A4A42;
+    --gold: #C98F3A;
+    --line: rgba(34,48,42,0.16);
+    --radius: 3px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --paper: #1B231F;
+      --paper-alt: #232E28;
+      --ink: #EDEAE0;
+      --ink-soft: #B7C0B9;
+      --teal: #7FB3A5;
+      --teal-deep: #9FCBBE;
+      --gold: #E0AE5D;
+      --line: rgba(237,234,224,0.16);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper: #1B231F;
+    --paper-alt: #232E28;
+    --ink: #EDEAE0;
+    --ink-soft: #B7C0B9;
+    --teal: #7FB3A5;
+    --teal-deep: #9FCBBE;
+    --gold: #E0AE5D;
+    --line: rgba(237,234,224,0.16);
+  }
+  html{ scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; }
+  .wrap{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  h1, h2, h3, .display{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    padding: 28px 0 0;
+  }
+  header .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size: 19px;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+  }
+  .brand .dot{ color: var(--teal); font-size: 22px; }
+  nav a{
+    text-decoration:none;
+    font-size:14.5px;
+    color: var(--ink-soft);
+    margin-left: 26px;
+  }
+  nav a:hover{ color: var(--ink); }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 96px 0 84px;
+    position: relative;
+  }
+  .hero .wrap{
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 48px;
+    align-items: end;
+  }
+  .kicker{
+    font-size: 15px;
+    color: var(--teal);
+    margin-bottom: 18px;
+  }
+  h1{
+    font-size: clamp(38px, 5.6vw, 66px);
+    line-height: 1.04;
+    max-width: 11ch;
+  }
+  h1 em{
+    font-style: italic;
+    color: var(--teal);
+  }
+  .hero-note{
+    max-width: 30ch;
+    font-size: 16px;
+    color: var(--ink-soft);
+    padding-bottom: 6px;
+    border-left: 2px solid var(--line);
+    padding-left: 20px;
+  }
+  .hero-note strong{ color: var(--ink); font-weight:600; }
+
+  .cta-row{
+    margin-top: 34px;
+    display:flex;
+    gap: 14px;
+    align-items:center;
+    flex-wrap: wrap;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding: 13px 22px;
+    background: var(--teal-deep);
+    color: var(--paper);
+    text-decoration:none;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 500;
+    border: 1px solid var(--teal-deep);
+    transition: transform .15s ease, background .15s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); background: var(--teal); }
+  .btn.ghost{
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+  .btn.ghost:hover{ border-color: var(--ink-soft); background: transparent; }
+
+  /* ---------- divider strip ---------- */
+  .strip{
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--paper-alt);
+    padding: 18px 0;
+    overflow: hidden;
+  }
+  .strip .wrap{
+    display:flex;
+    justify-content: space-between;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    flex-wrap: wrap;
+    gap: 10px 24px;
+  }
+
+  /* ---------- offerings ---------- */
+  .offerings{
+    padding: 92px 0 60px;
+  }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap: 24px;
+    margin-bottom: 52px;
+    flex-wrap: wrap;
+  }
+  .section-head h2{
+    font-size: clamp(28px, 3.6vw, 40px);
+    max-width: 14ch;
+  }
+  .section-head p{
+    max-width: 34ch;
+    color: var(--ink-soft);
+    font-size: 15px;
+  }
+
+  .service{
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
+    gap: 28px;
+    align-items: start;
+    padding: 34px 0;
+    border-top: 1px solid var(--line);
+  }
+  .service:last-child{ border-bottom: 1px solid var(--line); }
+  .service-num{
+    font-family:'Fraunces', serif;
+    font-size: 15px;
+    color: var(--teal);
+    padding-top: 4px;
+  }
+  .service h3{
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .service p{
+    color: var(--ink-soft);
+    font-size: 15px;
+    max-width: 48ch;
+  }
+  .service-examples{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .service-examples span{
+    font-size: 12.5px;
+    padding: 5px 11px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    color: var(--ink-soft);
+  }
+  .service-price{
+    text-align:right;
+    padding-top: 4px;
+    white-space: nowrap;
+  }
+  .service-price .from{
+    display:block;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 2px;
+  }
+  .service-price .amount{
+    font-family:'Fraunces', serif;
+    font-size: 22px;
+    color: var(--ink);
+  }
+
+  /* ---------- process ---------- */
+  .process{
+    padding: 80px 0;
+    background: var(--paper-alt);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .process-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 48px;
+  }
+  .process-item .step{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    color: var(--teal);
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .process-item h3{
+    font-size: 18px;
+    font-weight: 600;
+    font-family:'Inter';
+    margin-bottom: 8px;
+  }
+  .process-item p{
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- gallery note / mock preview ---------- */
+  .preview{
+    padding: 92px 0;
+  }
+  .preview .wrap{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items:center;
+  }
+  .mock{
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-alt);
+    padding: 18px;
+  }
+  .mock-bar{
+    display:flex;
+    gap:6px;
+    margin-bottom: 14px;
+  }
+  .mock-bar span{
+    width:8px; height:8px; border-radius:50%;
+    background: var(--line);
+  }
+  .mock-body{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 26px 22px;
+  }
+  .mock-title{
+    font-family:'Fraunces', serif;
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .mock-sub{
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  .mock-line{
+    height: 8px;
+    background: var(--line);
+    border-radius: 2px;
+    margin-bottom: 8px;
+  }
+  .mock-line.short{ width: 60%; }
+  .mock-btn{
+    display:inline-block;
+    margin-top: 14px;
+    font-size: 11.5px;
+    padding: 7px 14px;
+    background: var(--teal-deep);
+    color: var(--paper);
+    border-radius: 2px;
+  }
+  .preview-copy h2{
+    font-size: clamp(26px, 3.4vw, 36px);
+    margin-bottom: 18px;
+    max-width: 13ch;
+  }
+  .preview-copy p{
+    color: var(--ink-soft);
+    font-size: 15px;
+    max-width: 42ch;
+    margin-bottom: 14px;
+  }
+
+  /* ---------- final cta ---------- */
+  .final{
+    padding: 100px 0 110px;
+    text-align:center;
+  }
+  .final h2{
+    font-size: clamp(30px, 4.6vw, 52px);
+    max-width: 16ch;
+    margin: 0 auto 22px;
+  }
+  .final p{
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    max-width: 40ch;
+    margin: 0 auto 30px;
+  }
+  .final .cta-row{ justify-content:center; }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 26px 0 34px;
+  }
+  footer .wrap{
+    display:flex;
+    justify-content:space-between;
+    font-size: 13px;
+    color: var(--ink-soft);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  @media (max-width: 760px){
+    .hero .wrap{ grid-template-columns: 1fr; gap: 28px; }
+    .hero-note{ border-left:none; padding-left:0; border-top:1px solid var(--line); padding-top:16px; }
+    .service{ grid-template-columns: 1fr; gap: 10px; }
+    .service-price{ text-align:left; }
+    .process-grid{ grid-template-columns: 1fr; gap: 30px; }
+    .preview .wrap{ grid-template-columns: 1fr; }
+    nav a{ margin-left: 16px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">hago<span class="dot">·</span>web</div>
+    <nav>
+      <a href="#trabajos">Lo que hago</a>
+      <a href="#proceso">Cómo trabajo</a>
+      <a href="#contacto">Escríbeme</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="kicker">Páginas web, hechas simples</p>
+      <h1>Una página <em>a tu manera</em>, sin vueltas.</h1>
+    </div>
+    <p class="hero-note">
+      Hago sitios pequeños y cuidados para lo que necesites contar:
+      <strong>una presentación</strong>, <strong>un detalle especial</strong>
+      para alguien, o simplemente <strong>algo sencillo</strong> que quieras
+      tener en línea.
+    </p>
+  </div>
+  <div class="wrap">
+    <div class="cta-row">
+      <a class="btn" href="#contacto">Cuéntame tu idea</a>
+      <a class="btn ghost" href="#trabajos">Ver qué hago</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <span>Entrega rápida</span>
+    <span>HTML · CSS · JS, sin plantillas genéricas</span>
+    <span>Funciona en el celular</span>
+    <span>Precio claro antes de empezar</span>
+  </div>
+</div>
+
+<section class="offerings" id="trabajos">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Tres formas simples de empezar</h2>
+      <p>No hace falta un proyecto grande. Estas son las páginas que más pido hacer.</p>
+    </div>
+
+    <div class="service">
+      <div class="service-num">01</div>
+      <div>
+        <h3>Presentaciones</h3>
+        <p>Una página para mostrar quién eres, tu negocio o tu trabajo: qué haces, cómo contactarte, y un par de cosas que quieras destacar.</p>
+        <div class="service-examples">
+          <span>Portafolio personal</span>
+          <span>Presentación de negocio</span>
+          <span>Página de un producto</span>
+        </div>
+      </div>
+      <div class="service-price">
+        <span class="from">desde</span>
+        <span class="amount">$XX</span>
+      </div>
+    </div>
+
+    <div class="service">
+      <div class="service-num">02</div>
+      <div>
+        <h3>Detalles especiales</h3>
+        <p>Una página pensada para una persona: un cumpleaños, una propuesta, un aniversario. Con su nombre, sus fotos, su historia.</p>
+        <div class="service-examples">
+          <span>Sorpresa de cumpleaños</span>
+          <span>Invitación a un evento</span>
+          <span>Carta digital</span>
+        </div>
+      </div>
+      <div class="service-price">
+        <span class="from">desde</span>
+        <span class="amount">$XX</span>
+      </div>
+    </div>
+
+    <div class="service">
+      <div class="service-num">03</div>
+      <div>
+        <h3>Cosas sencillas</h3>
+        <p>Si tienes una idea corta que quieres ver hecha realidad —una página de una sola sección, algo divertido, algo útil— también la hago.</p>
+        <div class="service-examples">
+          <span>Página de una sola sección</span>
+          <span>Idea pequeña</span>
+          <span>Lo que se te ocurra</span>
+        </div>
+      </div>
+      <div class="service-price">
+        <span class="from">desde</span>
+        <span class="amount">$XX</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="proceso">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:0;">
+      <h2>Así de simple es trabajar juntos</h2>
+      <p>Tres pasos, sin complicaciones ni contratos largos.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-item">
+        <p class="step">Uno</p>
+        <h3>Me cuentas tu idea</h3>
+        <p>Por mensaje, sin formularios. Qué quieres decir y para quién es la página.</p>
+      </div>
+      <div class="process-item">
+        <p class="step">Dos</p>
+        <h3>Te muestro un borrador</h3>
+        <p>Armo una primera versión y la revisamos juntos hasta que quede como la imaginaste.</p>
+      </div>
+      <div class="process-item">
+        <p class="step">Tres</p>
+        <h3>Queda lista y en línea</h3>
+        <p>Te entrego el enlace para compartir, o los archivos si prefieres tenerlos tú.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="preview">
+  <div class="wrap">
+    <div class="mock">
+      <div class="mock-bar"><span></span><span></span><span></span></div>
+      <div class="mock-body">
+        <div class="mock-title">Para Camila, con cariño</div>
+        <div class="mock-sub">unapaginita.com/camila</div>
+        <div class="mock-line"></div>
+        <div class="mock-line"></div>
+        <div class="mock-line short"></div>
+        <span class="mock-btn">Ver mensaje</span>
+      </div>
+    </div>
+    <div class="preview-copy">
+      <h2>Simple no significa sin cuidado</h2>
+      <p>Cada página se escribe a mano, pensando en lo que quieres transmitir. Sin plantillas armadas de antemano ni relleno que no dice nada.</p>
+      <p>Ligera, rápida de cargar, y fácil de ver desde el celular de quien la reciba.</p>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="contacto">
+  <div class="wrap">
+    <h2>¿Tienes una idea en mente?</h2>
+    <p>Cuéntame qué quieres hacer y en un par de días tienes tu página lista para compartir.</p>
+    <div class="cta-row">
+      <a class="btn" href="angelgomezborja123@gmail.com">Escríbeme un correo</a>
+      <a class="btn ghost" href="https://wa.me/qr/PFRPIIW4AHX4O1" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>hago·web — páginas sencillas, hechas con cuidado</span>
+    <span>© 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
